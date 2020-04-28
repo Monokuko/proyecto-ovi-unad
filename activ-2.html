@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Aprende Diseño de Sitios Web mediante la presentación de contenido HTML5, CSS3 y GITHUB.">
+    <link rel="stylesheet" href="css\main.css" type="text/css">
+    <link rel="shortcut icon" href="img\favicon.ico" type="image/x-icon">    
+    <title>Juego Ahorcado - OVI Diseño de Sitios Web</title>
+    
+</head>
+<body>
+    <header>
+        <!-- Este es el logo institucional que se muestra en la parte de arriba a la izquierda -->
+        <img src="img\logo.png" alt="" id="logo">
+        <h1 class="titulo_principal">OVI DISEÑO DE SITIOS WEB</h1>
+        
+        <div class="menu_bar">
+			<a href="#" class="bt-menu"><span class="icon-list2"></span>OVI DISEÑO DE SITIOS WEB</a>
+        </div>
+
+        <!--Dentro de la etiqueta <nav></nav> se encuentra el Menu-->
+
+        
+		<nav class="menu_principal">
+            <ul id="menu">
+                <li><a href="index.html" title="Inicio">INICIO</a></li>
+                <li><a href="lecturas.html">LECTURAS</a>
+                    <ul>
+                        <li><a href="lect-1.html">Introducción a Diseño Web</a></li>
+                        <li><a href="lect-2.html">Presentación de HTML 5</a></li>
+                        <li><a href="lect-3.html">Introducción a CSS 3</a></li>
+                        <li><a href="lect-4.html">Conozca que es GIT</a></li>
+                        <li><a href="lect-5.html">Instalación GIT y GITHUB</a></li>
+                    </ul>
+                </li>
+                <li><a href="multimedia.html">MULTIMEDIA</a>
+                    <ul>
+                        <li><a href="multi-1.html">¿Qué es HTML5</a></li>
+                        <li><a href="multi-2.html">¿Qué es CSS3?</a></li>
+                        <li><a href="multi-3.html">Introducción a GIT</a></li>
+                    </ul>
+                </li>
+                <li><a href="actividades.html">ACTIVIDADES</a>
+                    <ul>
+                        <li><a href="activ-1.html">Crucigrama</a></li>
+                        <li><a href="activ-2.html">Juego Ahorcado</a></li>
+                        <li><a href="activ-3.html">Desarrollar Quiz</a></li>
+                    </ul>
+                </li>
+                <li><a href="autores.html">AUTORES</a></li>
+            </ul>
+        </nav>
+        <!--Aquí termina el menu-->      
+		
+    </header>
+    <section class="principal">        
+            <div class="container-actividades"> 
+
+            <h2>Actividad: Juego de Ahorcados</h2>   
+       
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+            <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
+
+                            
+                        
+                    
+                
+            
+            <script language="JavaScript">
+                var hombre = new Array("___\n", "   |\n", "   O\n", "  /", "|", "\\\n", "  /", " \\\n", "___")
+var palabra
+var libreriaPalabras = new Array("m u l t i m e d i a", "h t m l", "b o d y", "p r o t o c o l o", "c s s",
+"n a v e g a d o r", "h e i g h", "c e n t e r", "p a g i n a", "w w w",
+"d e s c a r g a r", "j a v a s c r i p t", "g i t h u b", "u n a d",
+"c o n e c t a r", "d e s c o n e c t a r", "p a g e s", "i n t e r n e t",
+"l i n k ", "c o m p u t a d o r", "h e a d","i n p u t", "r g b a", "a t r i b u t o" )
+var partes = 0
+var colNueva = 0
+var jugando
+
+
+function ObtienePalabra() {
+   //obtiene la palabra para jugar de forma aleatoria
+   var indice = Math.round ( Math.random() * 27 )
+   var cadena = new String( libreriaPalabras[indice] )
+   palabra = cadena.split(" ")
+}
+
+
+function DibujaHombre(visor, partes) {
+   //dibuja el hombre ahorcado
+   var dibujo = ""
+   if (partes < 10)
+      for(var x = 0; x < partes; x++) {
+         dibujo += hombre[x]
+      }
+   visor.displayHombre.value = dibujo
+}
+
+
+function DibujaLetra(visor, letra) {
+   //dibuja una letra de la palabra
+   var flag = false 
+   //indica si se encontro la letra 
+   //obtiene cadena actual
+   var cadena = new String(visor.displayPalabra.value)
+   //la separa en sus espacios
+   var letrasCadena = cadena.split(" ")
+   cadena = "" 
+   for (var x = 0; x < palabra.length; x++) {
+      if (palabra[x] == letra) {
+         cadena += letra + " "
+         flag = true
+      } else
+         cadena += letrasCadena[x] + " "
+   }
+   visor.displayPalabra.value = cadena
+   return flag
+}
+
+
+function NuevaLetra(visor, letra) {
+   //añade letra lista de letras
+   visor.displayLetras.value += letra + " "
+   //comprueba si ha de pasar a la siguiente fila
+   if(colNueva == 3) {
+      visor.displayLetras.value += "\n"
+      colNueva = 0
+   } else
+      colNueva++
+}
+
+
+function Juega(visor, letra) {
+   //comprueba si esta jugando
+   if (jugando) {
+      //ciclo de jugada
+      //1. añade letra a la lista
+      NuevaLetra(visor, letra)
+      //2. dibuja la letra y comprueba si acierto
+      var acierto = DibujaLetra(visor, letra)
+      //3. si no acierto, dibuja hombre
+      if (!acierto)
+         DibujaHombre(visor, ++partes)
+      //4. comprueba si fin
+      if (partes == 9)
+         FinJuego(false)
+      else if (CompruebaPalabra(visor))
+         FinJuego(true)
+      } else {
+         alert('Pulsa Juego nuevo para comenzar\nuna partida nueva.')
+   }
+}
+
+function IniciaJuego(visor) {
+   //inicializa visor y variables
+   jugando = true
+   partes = 0
+   colNueva = 0
+   ObtienePalabra()
+   DibujaHombre(visor, partes)
+   visor.displayPalabra.value = ""
+   for (var x = 0; x < palabra.length; x++)
+      visor.displayPalabra.value += "_ "
+   visor.displayLetras.value = ""
+}
+
+function CompruebaPalabra(visor) {
+   //comprueba si se completo toda la palabra
+   var fin = true
+   //obtiene cadena actual
+   var cadena = new String(visor.displayPalabra.value)
+   //la separa en sus espacios
+   var letrasCadena = cadena.split(" ")
+   for(var x = 0; x < letrasCadena.length; x++)
+      if (letrasCadena[x] == "_")
+         fin = false
+   return fin
+}
+
+
+function FinJuego(resultado) {
+   //indica que si se ha perdido o ganado
+   var solucion = ""
+   jugando = false 
+   if (resultado) {
+      document.visor.ganadas.value++
+      alert("Lo Lograste, continua exitosamente !")
+   } else {
+     document.visor.perdidas.value++
+     //construye la palabra solucion
+     for (var x = 0; x < palabra.length; x++)
+        solucion += palabra[x]
+     alert("Fallaste , intenta nuevamente!\n La palabra era: " + solucion)
+   }
+}
+            </script>
+            <meta content="MSHTML 6.00.2900.2802" name="GENERATOR">
+        
+    
+    <body>
+        <div class="ahorcado2 jumbotron">
+            <div class="container">
+                <!--<img align="right" alt="" class="img-responsive" height="400" src="images/Ahorcado.jpg" width="400">-->
+
+                    <br>
+                        <p>
+                            Descubre las palabras ocultas en el juego y podras Ganarle
+                  Ven Intentalo!!!.
+                        </p>
+                        <br>
+                            
+                        </br>
+                    </br>
+                
+            </div>
+        </div>
+        <form class="form-inline" name="visor">
+            <center>
+                <table width="547">
+                    <!--<img align="left" alt="" height="380" src="img/ahorcado.jpg" width="380">-->
+                    <tbody class="ahorcado">
+                        <tr>
+                            <td align="middle" colspan="3" width="200">
+                                <textarea cols="15" name="displayHombre" rows="6">
+                                </textarea>
+                                </td><td align="middle" colspan="3" width="200">
+                                    <textarea cols="15" name="displayLetras" rows="6">
+                                    </textarea>
+                                    </td><td width="200">
+                                        </td></tr><tr>
+                                            <td align="middle" colspan="6" width="300">
+                                                <input class="displayPalabra" name="displayPalabra" size="42">
+                                                    </td><td align="middle">
+                                                        </td></tr><tr>
+                                                            <td align="middle" width="50">
+                                                                <input class="letra" name="botA" onclick="Juega(this.form, 'a')" type="button" value=" A ">
+                                                                    </td><td align="middle" width="50">
+                                                                        <input class="letra" name="botB" onclick="Juega(this.form, 'b')" type="button" value=" B ">
+                                                                            </td><td align="middle" width="50">
+                                                                                <input class="letra" name="botC" onclick="Juega(this.form, 'c')" type="button" value=" C ">
+                                                                                    </td><td align="middle" width="50">
+                                                                                        <input class="letra" name="botD" onclick="Juega(this.form, 'd')" type="button" value=" D ">
+                                                                                            </td><td align="middle" width="50">
+                                                                                                <input class="letra" name="botE" onclick="Juega(this.form, 'e')" type="button" value=" E ">
+                                                                                                    </td><td align="middle" width="50">
+                                                                                                        <input class="letra" name="botF" onclick="Juega(this.form, 'f')" type="button" value=" F ">
+                                                                                                            </td><td>
+                                                                                                                </td></tr><tr>
+                                                                                                                    <td align="middle">
+                                                                                                                        <input class="letra" name="botG" onclick="Juega(this.form, 'g')" type="button" value=" G ">
+                                                                                                                            </td><td align="middle">
+                                                                                                                                <input class="letra" name="botH" onclick="Juega(this.form, 'h')" type="button" value=" H ">
+                                                                                                                                    </td><td align="middle">
+                                                                                                                                        <input class="letra" name="botI" onclick="Juega(this.form, 'i')" type="button" value=" I ">
+                                                                                                                                            </td><td align="middle">
+                                                                                                                                                <input class="letra" name="botJ" onclick="Juega(this.form, 'j')" type="button" value=" J ">
+                                                                                                                                                    </td><td align="middle">
+                                                                                                                                                        <input class="letra" name="botK" onclick="Juega(this.form, 'k')" type="button" value=" K ">
+                                                                                                                                                            </td><td align="middle">
+                                                                                                                                                                <input class="letra" name="botL" onclick="Juega(this.form, 'l')" type="button" value=" L ">
+                                                                                                                                                                   
+                                                                                                                                                                            </td></tr><tr>
+                                                                                                                                                                                <td align="middle">
+                                                                                                                                                                                    <input class="letra" name="botM" onclick="Juega(this.form, 'm')" type="button" value=" M ">
+                                                                                                                                                                                        </td><td align="middle">
+                                                                                                                                                                                            <input class="letra" name="botN" onclick="Juega(this.form, 'n')" type="button" value=" N ">
+                                                                                                                                                                                                </td><td align="middle">
+                                                                                                                                                                                                    <input class="letra" name="botÑ" onclick="Juega(this.form, 'ñ')" type="button" value=" Ñ ">
+                                                                                                                                                                                                        </td><td align="middle">
+                                                                                                                                                                                                            <input class="letra" name="botO" onclick="Juega(this.form, 'o')" type="button" value=" O ">
+                                                                                                                                                                                                                </td><td align="middle">
+                                                                                                                                                                                                                    <input class="letra" name="botP" onclick="Juega(this.form, 'p')" type="button" value=" P ">
+                                                                                                                                                                                                                        </td><td align="middle">
+                                                                                                                                                                                                                            <input class="letra" name="botQ" onclick="Juega(this.form, 'q')" type="button" value=" Q ">
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                        </td></tr><tr>
+                                                                                                                                                                                                                                            <td align="middle">
+                                                                                                                                                                                                                                                <input class="letra" name="botR" onclick="Juega(this.form, 'r')" type="button" value=" R ">
+                                                                                                                                                                                                                                                    </td><td align="middle">
+                                                                                                                                                                                                                                                        <input class="letra" name="botS" onclick="Juega(this.form, 's')" type="button" value=" S ">
+                                                                                                                                                                                                                                                            </td><td align="middle">
+                                                                                                                                                                                                                                                                <input class="letra" name="botT" onclick="Juega(this.form, 't')" type="button" value=" T ">
+                                                                                                                                                                                                                                                                    </td><td align="middle">
+                                                                                                                                                                                                                                                                        <input class="letra" name="botU" onclick="Juega(this.form, 'u')" type="button" value=" U ">
+                                                                                                                                                                                                                                                                            </td><td align="middle">
+                                                                                                                                                                                                                                                                                <input class="letra" name="botV" onclick="Juega(this.form, 'v')" type="button" value=" V ">
+                                                                                                                                                                                                                                                                                    </td><td align="middle">
+                                                                                                                                                                                                                                                                                        <input class="letra" name="botW" onclick="Juega(this.form, 'w')" type="button" value=" W ">
+                                                                                                                                                                                                                                                                                            </td><td>
+                                                                                                                                                                                                                                                                                                </td></tr><tr>
+                                                                                                                                                                                                                                                                                                    <td align="middle">
+                                                                                                                                                                                                                                                                                                        <input class="letra" name="botX" onclick="Juega(this.form, 'x')" type="button" value=" X ">
+                                                                                                                                                                                                                                                                                                            </td><td align="middle">
+                                                                                                                                                                                                                                                                                                                <input class="letra" name="botY" onclick="Juega(this.form, 'y')" type="button" value=" Y ">
+                                                                                                                                                                                                                                                                                                                    </td><td align="middle">
+                                                                                                                                                                                                                                                                                                                        <input class="letra" name="botZ" onclick="Juega(this.form, 'z')" type="button" value=" Z ">
+                                                                                                                                                                                                                                                                                                                            </td><td align="middle" colspan="3">
+                                                                                                                                                                                                                                                                                                                                <input class="btnjuegonuevo" name="Inicia" onclick="IniciaJuego(this.form)" type="button" value="Juego Nuevo">
+                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                        <input class="limpiar" name="B1" onclick="this.form.ganadas.value='0'; this.form.perdidas.value='0'" type="button" value="Limpiar">
+                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                            </td>
+                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                </tr>
+                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                            
+                                                                                                                                                                                                                        
+                                                                                                                                                                                                                    
+                                                                                                                                                                                                                
+                                                                                                                                                                                                            
+                                                                                                                                                                                                        
+                                                                                                                                                                                                    
+                                                                                                                                                                                                
+                                                                                                                                                                                            
+                                                                                                                                                                                        
+                                                                                                                                                                                    
+                                                                                                                                                                                
+                                                                                                                                                                            
+                                                                                                                                                                       
+                                                                                                                                                                
+                                                                                                                                                            
+                                                                                                                                                        
+                                                                                                                                                    
+                                                                                                                                                
+                                                                                                                                            
+                                                                                                                                        
+                                                                                                                                    
+                                                                                                                                
+                                                                                                                            
+                                                                                                                        
+                                                                                                                    
+                                                                                                                
+                                                                                                            
+                                                                                                        
+                                                                                                    
+                                                                                                
+                                                                                            
+                                                                                        
+                                                                                    
+                                                                                
+                                                                            
+                                                                        
+                                                                    
+                                                                
+                                                            
+                                                        
+                                                    
+                                                
+                                            
+                                        
+                                    
+                                
+                            
+                        
+                    </tbody>
+                </table>
+                <td align="middle" colspan="3">
+                Ganadas:
+                    <input class="ganadas" name="ganadas" size="4" value="0" disabled="">
+                    Perdidas:
+                    <input class="perdidas" name="perdidas" size="4" value="0" disabled=""></td>
+        </center></form>
+        <div class="container">
+            <ul style="font-size-adjust: 0.58 ">
+                <br><br>
+                <h2>
+                    Instrucciones del Juego:
+                </h2>
+                <li>
+                    <p>
+                        Se realiza el dibujo en el tablero que puedes observar,donde colocando una línea por cada letra de la palabra. Se debe entregar una pista de la palabra incógnita. Se dibuja la base de la horca (sin muñeco)
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Al inicio el jugador oprime la letra que desea. Si la letra se encuentra entonces se anota en el tablero de la derecha y en todas las casillas de la misma letra. Si no está se pone la letra bajo la horca y se va dibujando el muñeco.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        El muñeco se dibuja en 10 partes (horca, cabeza, tronco y extremidades), por lo que el jugador tiene 6 posibilidades de fallar.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Gana el jugador si descubre la palabra y Pierde si se dibuja el muñeco en la horca.
+                    
+                </p></li>
+                <li>
+                    <p>
+                        Solo se podra presionar las letras si el muñeco no se ha dibujado completamente .
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Cuando la palabra se ha adivinado entonces se identifica como ganador aumentando los juegos ganados, de lo contrario le muestra un  mensaje que ha perdido el juego y oprime el boton de "Juego nuevo" para iniciar nuevamente.
+                    </p>
+                </li>
+            </ul>
+        </div>
+        
+        </body></div>
+    </section>
+    <footer>
+        <p>Sede nacional José Celestino Mutis: Calle 14 sur No. 14 - 23<br>
+            PBX:<a style="color:#FFF;" href="tel:+5713443700"> ( +57 1 ) 344 3700</a> Bogotá D.C., Colombia<br>
+            Línea nacional gratuita desde Colombia: <a style="color:#FFF;" href="tel:018000115223">018000115223</a><br>
+            Atención al usuario: atencionalusuario@unad.edu.co<br>
+            Institución de Educación Superior sujeta a inspección y vigilancia por el Ministerio de Educación Nacional
+            </p>
+    </footer>  
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+    <script src="jquery\main.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</body>
+</html>
